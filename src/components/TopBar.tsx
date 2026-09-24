@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CircleHelp, MonitorPlay, MonitorX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SystemCheck } from "@/components/SystemCheck";
 import logoUrl from "@/assets/logo.png";
 import { listScreens, supportsScreenPlacement, type ScreenInfo } from "@/lib/screens";
 import { cn } from "@/lib/utils";
@@ -67,6 +68,8 @@ export function TopBar({ onShowShortcuts }: { onShowShortcuts: () => void }) {
         />
         {displayOpen ? "Projeção conectada" : "Projeção fechada"}
       </span>
+
+      <SystemCheck />
 
       <Button variant="ghost" size="icon" onClick={onShowShortcuts} title="Atalhos (?)" aria-label="Ver atalhos">
         <CircleHelp className="size-4" />

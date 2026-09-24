@@ -52,8 +52,20 @@ function loadYouTubeApi(): Promise<YTNamespace> {
     const script = document.createElement("script");
     script.src = "https://www.youtube.com/iframe_api";
     script.async = true;
-    script.onerror = () => reject(new Error("Não foi possível carregar o player do YouTube."));
-    window.onYouTubeIframeAPIReady = () => resolve(window.YT!);
+    const timer = window.setTimeout(() => {
+      apiPromise = null;
+      script.remove();
+      reject(new Error("O player do YouTube demorou demais para responder."));
+    }, 10_000);
+    script.onerror = () => {
+      window.clearTimeout(timer);
+      apiPromise = null;
+      reject(new Error("Não foi possível carregar o player do YouTube."));
+    };
+    window.onYouTubeIframeAPIReady = () => {
+      window.clearTimeout(timer);
+      resolve(window.YT!);
+    };
     document.head.appendChild(script);
   });
   return apiPromise;
@@ -106,6 +118,7 @@ export default function Display() {
         setLive((current) => (message.state.updatedAt >= current.updatedAt ? message.state : current));
       }
       if (message.type === "hello") channel.post({ type: "display-open" });
+      if (message.type === "health-ping") channel.post({ type: "health-pong", id: message.id });
     });
 
     channelRef.current = channel;
@@ -160,7 +173,10 @@ export default function Display() {
         });
       })
       .catch((cause: Error) => {
-        if (!cancelled) setError(cause.message);
+        if (!cancelled) {
+          setError(cause.message);
+          report({ ready: false, error: cause.message });
+        }
       });
 
     return () => {

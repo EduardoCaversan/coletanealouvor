@@ -27,6 +27,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Testes
+        run: npm test
+
       # Gera o índice do hinário; sem ele a busca não tem o que mostrar.
       - run: npm run import:hymnal
 

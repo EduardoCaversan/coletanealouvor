@@ -38,6 +38,7 @@ type State = {
   bible: BibleBook[];
   bibleVersion: BibleVersionId;
   bibleLoading: boolean;
+  bibleError: string | null;
 
   setlist: SetlistItem[];
   savedPlans: SavedServicePlan[];
@@ -229,6 +230,7 @@ export const useApp = create<State & Actions>((set, get) => ({
     return isBibleVersion(stored) ? stored : DEFAULT_BIBLE_VERSION;
   })(),
   bibleLoading: false,
+  bibleError: null,
 
   setlist: initialSetlist,
   savedPlans: initialSavedPlans,
@@ -255,6 +257,7 @@ export const useApp = create<State & Actions>((set, get) => ({
   screenKey: local.get<string | null>("screenKey", null),
 
   async boot() {
+    set({ loading: true, error: null });
     try {
       const [hymnal, videos] = await Promise.all([
         loadHymnal((fresh) => set({ hymns: fresh.hymns })),
@@ -262,9 +265,10 @@ export const useApp = create<State & Actions>((set, get) => ({
       ]);
       set({ hymns: hymnal.hymns, videos, loading: false });
     } catch (error) {
+      console.error("Falha ao carregar o hinário.", error);
       set({
         loading: false,
-        error: error instanceof Error ? error.message : "Falha ao carregar o hinário",
+        error: "Verifique a conexão e os arquivos de dados, depois tente novamente.",
       });
       return;
     }
@@ -290,15 +294,21 @@ export const useApp = create<State & Actions>((set, get) => ({
 
   async setBibleVersion(version) {
     local.set("bibleVersion", version);
-    set({ bibleVersion: version, bibleLoading: true });
+    set({ bibleVersion: version, bibleLoading: true, bibleError: null });
     try {
       const bible = await loadBible(version, (fresh) => {
         if (get().bibleVersion === version) set({ bible: fresh.books });
       });
       if (get().bibleVersion === version) set({ bible: bible.books, bibleLoading: false });
-    } catch {
+    } catch (error) {
       // Sem public/data/biblia-<versão>.json (ex: `npm run import:bible` não rodou ainda).
-      if (get().bibleVersion === version) set({ bibleLoading: false });
+      console.error(`Falha ao carregar a Bíblia (${version}).`, error);
+      if (get().bibleVersion === version) {
+        set({
+          bibleLoading: false,
+          bibleError: "Verifique a conexão ou os arquivos desta tradução.",
+        });
+      }
     }
   },
 

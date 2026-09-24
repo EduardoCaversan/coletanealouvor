@@ -29,6 +29,7 @@ export function BibleSearch() {
   const bible = useApp((state) => state.bible);
   const bibleVersion = useApp((state) => state.bibleVersion);
   const bibleLoading = useApp((state) => state.bibleLoading);
+  const bibleError = useApp((state) => state.bibleError);
   const setBibleVersion = useApp((state) => state.setBibleVersion);
   const passageStyle = useApp((state) => state.passageStyle);
   const setPassageStyle = useApp((state) => state.setPassageStyle);
@@ -184,6 +185,10 @@ export function BibleSearch() {
         <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-ink-400">
           {bibleLoading ? (
             "Carregando…"
+          ) : bibleError ? (
+            <span>
+              Bíblia indisponível no momento. <span className="text-amber-400">{bibleError}</span>
+            </span>
           ) : (
             <span>
               Bíblia não disponível. Rode <code className="mx-1">npm run import:bible</code> e recarregue.

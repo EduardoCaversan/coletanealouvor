@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookOpen, ListMusic, Radio, Search } from "lucide-react";
 import { BibleSearch } from "@/components/BibleSearch";
+import { Button } from "@/components/ui/button";
 import { HymnSearch } from "@/components/HymnSearch";
 import { Setlist } from "@/components/Setlist";
 import { ShortcutsHelp } from "@/components/ShortcutsHelp";
@@ -27,7 +28,15 @@ export default function Control() {
   }, [boot]);
 
   if (loading) return <Splash message="Carregando o hinário…" />;
-  if (error) return <Splash message={`Não foi possível carregar o hinário: ${error}`} />;
+  if (error) {
+    return (
+      <Splash message={`Não foi possível carregar o hinário: ${error}`}>
+        <Button variant="secondary" size="sm" onClick={() => void boot()}>
+          Tentar novamente
+        </Button>
+      </Splash>
+    );
+  }
 
   return (
     <div className="flex h-dvh flex-col bg-ink-950">
@@ -117,10 +126,11 @@ function TabButton({
   );
 }
 
-function Splash({ message }: { message: string }) {
+function Splash({ message, children }: { message: string; children?: React.ReactNode }) {
   return (
-    <div className="flex h-dvh items-center justify-center px-6 text-center text-sm text-ink-400">
-      {message}
+    <div className="flex h-dvh flex-col items-center justify-center gap-3 px-6 text-center text-sm text-ink-400">
+      <p>{message}</p>
+      {children}
     </div>
   );
 }

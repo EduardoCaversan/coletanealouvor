@@ -35,9 +35,19 @@ async function write(key: string, value: unknown) {
  * Carrega um JSON servindo primeiro o que está em IndexedDB e revalidando em
  * segundo plano — a busca abre sem esperar a rede.
  */
+async function fetchWithTimeout(url: string, timeoutMs = 10_000) {
+  const controller = new AbortController();
+  const timer = globalThis.setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { signal: controller.signal });
+  } finally {
+    globalThis.clearTimeout(timer);
+  }
+}
+
 async function cachedJson<T>(url: string, key: string, onFresh?: (value: T) => void): Promise<T> {
   const cached = await read<{ etag: string; value: T }>(key);
-  const revalidate = fetch(url)
+  const revalidate = fetchWithTimeout(url)
     .then(async (response) => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const etag = response.headers.get("etag") ?? "";
@@ -71,6 +81,17 @@ export function loadBible(version: BibleVersionId, onFresh?: (bible: Bible) => v
   return cachedJson<Bible>(dataUrl(`biblia-${version}.json`), `biblia:${version}`, onFresh);
 }
 
+/** Confirma que o banco local pode ser aberto e lido, sem alterar dados do operador. */
+export async function checkIndexedDbAvailable() {
+  try {
+    const transaction = (await db()).transaction("acervo", "readonly");
+    await transaction.done;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Mapa hino -> vídeo. O arquivo do projeto é a base; o que o operador cadastra
  * na mão fica por cima, no navegador dele.
@@ -78,7 +99,7 @@ export function loadBible(version: BibleVersionId, onFresh?: (bible: Bible) => v
 export async function loadVideoMap(): Promise<VideoMap> {
   let base: VideoMap = {};
   try {
-    const response = await fetch(dataUrl("videos.json"));
+    const response = await fetchWithTimeout(dataUrl("videos.json"));
     if (response.ok) base = (await response.json()) as VideoMap;
   } catch {
     // Sem arquivo de vídeos ainda: vale só o que o operador cadastrar.

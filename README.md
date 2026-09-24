@@ -21,6 +21,15 @@ npm run build
 npm run preview
 ```
 
+Verificações de qualidade:
+
+```bash
+npm run typecheck
+npm run lint       # alias de compatibilidade para o typecheck
+npm test
+npm run build
+```
+
 ## Como funciona o modo duas telas
 
 | Rota | Papel |
@@ -53,6 +62,12 @@ A sincronia é local, por `BroadcastChannel` — sem servidor, sem latência. O 
 | `F` (na projeção) | Tela cheia |
 
 As teclas funcionam nas duas janelas.
+
+## Verificação pré-culto
+
+O botão de escudo no topo executa um diagnóstico pontual sem alterar o conteúdo no ar. Ele confere hinário, Bíblia, `localStorage`, IndexedDB, janela de projeção, comunicação controle ↔ projeção, conectividade externa, acesso ao domínio do player e problemas conhecidos no roteiro (como hino sem vídeo ou passagem inválida). Resultados que o navegador não consegue comprovar aparecem como **desconhecidos**, em vez de um falso positivo.
+
+A comunicação é testada com um único ping/pong e timeout curto quando o operador abre o diagnóstico; não há polling permanente.
 
 ## Vídeos dos hinos
 
