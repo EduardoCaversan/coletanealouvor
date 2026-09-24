@@ -30,6 +30,8 @@ npm run preview
 
 O roteiro aceita hinos, passagens bíblicas e etapas da programação sem vídeo (ex: "Oração", "Sermão"). Os botões **+ Escola Sabatina** e **+ Culto de Sábado**, no topo do roteiro, já carregam a ordem padrão dessas programações; dá pra editar o texto de cada etapa clicando nela, digitar etapas avulsas no campo abaixo dos modelos e arrastar os hinos da busca para os pontos certos. Navegação por teclado e o `stepHymn` pulam as etapas sem hino, indo direto de um hino para o outro.
 
+Programações completas podem ser nomeadas, datadas e salvas no próprio navegador. A lista de programações salvas permite carregar, duplicar e excluir uma programação; carregar trabalho sobre um roteiro alterado pede confirmação. Cada item também aceita uma **nota privada** para lembretes da equipe. Essas notas ficam somente no controle e nunca são enviadas à projeção. O botão **Desfazer** recupera a última alteração feita no roteiro.
+
 O botão **Abrir projeção** abre `/projecao` em uma janela separada. Em Chrome/Edge no desktop, a [Window Management API](https://developer.mozilla.org/docs/Web/API/Window_Management_API) posiciona a janela direto na tela do projetor; nos demais navegadores a janela abre normal e o operador arrasta para a segunda tela.
 
 Não precisa abrir a projeção antes: apertar **Tocar** (ou duplo clique num hino, na busca ou no roteiro) abre a projeção sozinho se ainda estiver fechada, e já toca.

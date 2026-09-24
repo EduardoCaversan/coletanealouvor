@@ -50,16 +50,28 @@ export type SetlistItem =
       uid: string;
       type: "hymn";
       hymnId: number;
+      note?: string;
     }
   | ({
       uid: string;
       type: "passage";
+      note?: string;
     } & PassageRef)
   | {
       uid: string;
       type: "label";
       text: string;
+      note?: string;
     };
+
+export type SavedServicePlan = {
+  id: string;
+  name: string;
+  date: string;
+  items: SetlistItem[];
+  createdAt: number;
+  updatedAt: number;
+};
 
 /** Modelo pronto de programação (culto de sábado, escola sabatina) para montar o roteiro. */
 export type SetlistTemplate = {

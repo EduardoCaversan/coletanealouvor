@@ -15,9 +15,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { BookOpen, GripVertical, ListPlus, Trash2 } from "lucide-react";
+import { BookOpen, Copy, GripVertical, ListPlus, StickyNote, Trash2, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ServicePlans } from "@/components/ServicePlans";
 import { passageReference } from "@/lib/bible";
 import { SETLIST_TEMPLATES } from "@/lib/templates";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,8 @@ export function Setlist() {
   const clear = useApp((state) => state.clearSetlist);
   const loadTemplate = useApp((state) => state.loadSetlistTemplate);
   const addLabel = useApp((state) => state.addLabelToSetlist);
+  const undoAvailable = useApp((state) => state.undoSetlist != null);
+  const undo = useApp((state) => state.undoSetlistChange);
 
   const [labelInput, setLabelInput] = useState("");
   const activeIndex = setlist.findIndex((item) => item.uid === activeUid);
@@ -55,16 +58,31 @@ export function Setlist() {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
+      <ServicePlans />
       <header className="flex flex-col gap-2 px-3 py-2">
         <div className="flex items-center justify-between">
           <h2 className="text-xs font-semibold tracking-wider text-ink-400 uppercase">
             Programação · {setlist.length}
           </h2>
-          {setlist.length > 0 && (
-            <Button variant="ghost" size="sm" onClick={clear}>
-              Limpar
-            </Button>
-          )}
+          <div className="flex items-center">
+            {undoAvailable && (
+              <Button variant="ghost" size="sm" onClick={undo} title="Desfazer última alteração">
+                <Undo2 className="size-3.5" />
+                Desfazer
+              </Button>
+            )}
+            {setlist.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  if (window.confirm("Limpar todos os itens do roteiro atual?")) clear();
+                }}
+              >
+                Limpar
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-1.5">
@@ -147,6 +165,8 @@ function Row({
   next: boolean;
 }) {
   const remove = useApp((state) => state.removeFromSetlist);
+  const duplicate = useApp((state) => state.duplicateSetlistItem);
+  const setNote = useApp((state) => state.setSetlistItemNote);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: item.uid,
   });
@@ -174,14 +194,52 @@ function Row({
         <GripVertical className="size-4" />
       </button>
       <span className="w-5 text-center text-xs text-ink-400">{index + 1}</span>
-      {item.type === "hymn" && <HymnRow item={item} active={active} />}
-      {item.type === "passage" && <PassageRow item={item} active={active} />}
-      {item.type === "label" && <LabelRow item={item} />}
+      <div className="min-w-0 flex-1">
+        {item.type === "hymn" && <HymnRow item={item} active={active} />}
+        {item.type === "passage" && <PassageRow item={item} active={active} />}
+        {item.type === "label" && <LabelRow item={item} />}
+        {item.note && (
+          <button
+            className="mt-0.5 block w-full truncate text-left text-[11px] text-amber-300"
+            onClick={() => {
+              const note = window.prompt("Nota privada (nunca aparece na projeção):", item.note);
+              if (note != null) setNote(item.uid, note);
+            }}
+            title={item.note}
+          >
+            <StickyNote className="mr-1 inline size-3" />
+            {item.note}
+          </button>
+        )}
+      </div>
       {(active || next) && (
         <span className={cn("text-[9px] font-bold uppercase", active ? "text-brand-400" : "text-sky-300")}>
           {active ? "No ar" : "Próximo"}
         </span>
       )}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+        onClick={() => {
+          const note = window.prompt("Nota privada (nunca aparece na projeção):", item.note ?? "");
+          if (note != null) setNote(item.uid, note);
+        }}
+        aria-label="Editar nota privada"
+        title="Nota privada"
+      >
+        <StickyNote className="size-3.5" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+        onClick={() => duplicate(item.uid)}
+        aria-label="Duplicar item"
+        title="Duplicar item"
+      >
+        <Copy className="size-3.5" />
+      </Button>
       <Button
         variant="ghost"
         size="icon"
@@ -231,8 +289,9 @@ function PassageRow({
 }) {
   const bible = useApp((state) => state.bible);
   const openPassage = useApp((state) => state.openPassage);
-  const { uid: itemUid, type: _type, ...ref } = item;
+  const { uid: itemUid, type: _type, note: _note, ...ref } = item;
   void _type;
+  void _note;
 
   return (
     <button
