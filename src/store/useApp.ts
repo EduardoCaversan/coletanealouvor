@@ -76,6 +76,7 @@ type Actions = {
   openHymn: (id: number, uid?: string | null) => void;
   /** Põe no ar o hino selecionado agora (sem tocar); usado por Tocar/duplo clique/próximo. */
   commitLive: () => void;
+  putOnAir: () => Promise<void>;
   stepHymn: (delta: number) => void;
 
   openPassage: (ref: PassageRef, uid?: string | null) => void;
@@ -229,10 +230,15 @@ export const useApp = create<State & Actions>((set, get) => ({
       activeUid: get().hymnUid,
       passage: null,
       playing: false,
-      blank: false,
       seek: null,
       player: { ...emptyPlayer, activated: get().player.activated },
     });
+  },
+
+  async putOnAir() {
+    if (get().hymnId == null || !get().videoOf(get().hymnId)) return;
+    get().commitLive();
+    if (!get().displayOpen) await get().openDisplay();
   },
 
   stepHymn(delta) {
@@ -259,7 +265,6 @@ export const useApp = create<State & Actions>((set, get) => ({
       activeUid: itemUid,
       liveHymnId: null,
       playing: false,
-      blank: false,
     });
   },
 
@@ -288,7 +293,7 @@ export const useApp = create<State & Actions>((set, get) => ({
     get().commitLive();
     // Tocar sem projeção aberta não mostra nada; abrimos por conta do operador.
     if (!get().displayOpen) await get().openDisplay();
-    set({ playing: true, blank: false });
+    set({ playing: true });
   },
 
   pause() {
@@ -297,7 +302,10 @@ export const useApp = create<State & Actions>((set, get) => ({
 
   toggle() {
     if (get().playing) get().pause();
-    else get().play();
+    else if (get().videoOf(get().liveHymnId)) {
+      if (!get().displayOpen) void get().openDisplay();
+      set({ playing: true });
+    }
   },
 
   seekTo(time) {

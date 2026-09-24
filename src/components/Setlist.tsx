@@ -34,6 +34,8 @@ export function Setlist() {
   const addLabel = useApp((state) => state.addLabelToSetlist);
 
   const [labelInput, setLabelInput] = useState("");
+  const activeIndex = setlist.findIndex((item) => item.uid === activeUid);
+  const nextUid = activeIndex >= 0 ? setlist[activeIndex + 1]?.uid : undefined;
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
@@ -117,7 +119,13 @@ export function Setlist() {
               strategy={verticalListSortingStrategy}
             >
               {setlist.map((item, index) => (
-                <Row key={item.uid} item={item} index={index} active={item.uid === activeUid} />
+                <Row
+                  key={item.uid}
+                  item={item}
+                  index={index}
+                  active={item.uid === activeUid}
+                  next={item.uid === nextUid}
+                />
               ))}
             </SortableContext>
           </DndContext>
@@ -127,7 +135,17 @@ export function Setlist() {
   );
 }
 
-function Row({ item, index, active }: { item: SetlistItem; index: number; active: boolean }) {
+function Row({
+  item,
+  index,
+  active,
+  next,
+}: {
+  item: SetlistItem;
+  index: number;
+  active: boolean;
+  next: boolean;
+}) {
   const remove = useApp((state) => state.removeFromSetlist);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: item.uid,
@@ -139,7 +157,11 @@ function Row({ item, index, active }: { item: SetlistItem; index: number; active
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
         "group mb-1 flex items-center gap-1 rounded-lg px-1 py-1.5",
-        active ? "bg-brand-600/15 ring-1 ring-brand-600/50" : "hover:bg-ink-800",
+        active
+          ? "bg-brand-600/15 ring-1 ring-brand-600/50"
+          : next
+            ? "bg-sky-500/10 ring-1 ring-sky-500/30"
+            : "hover:bg-ink-800",
         isDragging && "opacity-60",
       )}
     >
@@ -155,6 +177,11 @@ function Row({ item, index, active }: { item: SetlistItem; index: number; active
       {item.type === "hymn" && <HymnRow item={item} active={active} />}
       {item.type === "passage" && <PassageRow item={item} active={active} />}
       {item.type === "label" && <LabelRow item={item} />}
+      {(active || next) && (
+        <span className={cn("text-[9px] font-bold uppercase", active ? "text-brand-400" : "text-sky-300")}>
+          {active ? "No ar" : "Próximo"}
+        </span>
+      )}
       <Button
         variant="ghost"
         size="icon"

@@ -292,7 +292,7 @@ export default function Display() {
 
       {/* Tela preta por cima: vídeo/passagem continuam por baixo. */}
       <div
-        className={`absolute inset-0 bg-black transition-opacity duration-200 ${
+        className={`absolute inset-0 bg-black ${
           covered ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />

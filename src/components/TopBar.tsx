@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { MonitorPlay, MonitorX } from "lucide-react";
+import { CircleHelp, MonitorPlay, MonitorX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoUrl from "@/assets/logo.png";
 import { listScreens, supportsScreenPlacement, type ScreenInfo } from "@/lib/screens";
 import { cn } from "@/lib/utils";
 import { useApp } from "@/store/useApp";
 
-export function TopBar() {
+export function TopBar({ onShowShortcuts }: { onShowShortcuts: () => void }) {
   const displayOpen = useApp((state) => state.displayOpen);
   const displayWindow = useApp((state) => state.displayWindow);
   const openDisplay = useApp((state) => state.openDisplay);
@@ -67,6 +67,10 @@ export function TopBar() {
         />
         {displayOpen ? "Projeção conectada" : "Projeção fechada"}
       </span>
+
+      <Button variant="ghost" size="icon" onClick={onShowShortcuts} title="Atalhos (?)" aria-label="Ver atalhos">
+        <CircleHelp className="size-4" />
+      </Button>
 
       {displayOpen && displayWindow ? (
         <Button variant="outline" onClick={closeDisplay}>

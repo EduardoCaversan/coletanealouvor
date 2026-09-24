@@ -7,6 +7,7 @@ import {
   MonitorPlay,
   Pause,
   Play,
+  Send,
   Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,8 @@ export function Transport() {
   const displayOpen = useApp((state) => state.displayOpen);
   const passage = useApp((state) => state.passage);
   const bible = useApp((state) => state.bible);
+  const setlist = useApp((state) => state.setlist);
+  const activeUid = useApp((state) => state.activeUid);
 
   const toggle = useApp((state) => state.toggle);
   const seekTo = useApp((state) => state.seekTo);
@@ -38,8 +41,20 @@ export function Transport() {
   const stepHymn = useApp((state) => state.stepHymn);
   const movePassageVerses = useApp((state) => state.movePassageVerses);
   const closePassage = useApp((state) => state.closePassage);
+  const putOnAir = useApp((state) => state.putOnAir);
 
   const [scrubbing, setScrubbing] = useState<number | null>(null);
+  const activeIndex = setlist.findIndex((item) => item.uid === activeUid);
+  const nextItem = activeIndex >= 0 ? setlist[activeIndex + 1] : setlist[0];
+  const nextLabel = nextItem
+    ? nextItem.type === "hymn"
+      ? useApp.getState().hymn(nextItem.hymnId)?.title ?? "Hino indisponível"
+      : nextItem.type === "passage"
+        ? bible.length
+          ? passageReference(bible, nextItem)
+          : "Passagem bíblica"
+        : nextItem.text
+    : null;
 
   if (passage && bible.length) {
     return (
@@ -53,14 +68,21 @@ export function Transport() {
         onNext={() => movePassageVerses(1)}
         onBlank={() => setBlank(!blank)}
         onClose={closePassage}
+        nextLabel={nextLabel}
       />
     );
   }
 
   if (!hymn) {
     return (
-      <div className="flex h-full items-center justify-center p-6 text-center text-sm text-ink-400">
-        Busque um hino para começar.
+      <div className="flex h-full flex-col gap-3 p-3">
+        <LiveSummary
+          title={liveHymn ? `${liveHymn.title} · ${liveHymn.number}` : "Nada projetado"}
+          blank={blank}
+          playing={playing}
+        />
+        <NextSummary label={nextLabel} />
+        <p className="m-auto px-3 text-center text-sm text-ink-400">Busque um hino para preparar o preview.</p>
       </div>
     );
   }
@@ -71,10 +93,14 @@ export function Transport() {
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-3 p-3">
+      <LiveSummary
+        title={liveHymn ? `${liveHymn.title} · ${liveHymn.number}` : "Nada projetado"}
+        blank={blank}
+        playing={playing}
+      />
+      <NextSummary label={nextLabel} />
       <div>
-        <span className="text-xs font-semibold tracking-wider text-ink-400 uppercase">
-          {isLive ? "No ar" : "Selecionado"}
-        </span>
+        <span className="text-xs font-semibold tracking-wider text-sky-300 uppercase">Preview · selecionado</span>
         <div
           className={cn(
             "mt-1 aspect-video overflow-hidden rounded-xl border bg-black",
@@ -98,11 +124,6 @@ export function Transport() {
           {hymn.title}
           <span className="ml-2 text-xs tabular-nums text-ink-500">{hymn.number}</span>
         </p>
-        {!isLive && liveHymn && (
-          <p className="mt-1 text-xs text-ink-400">
-            No ar agora: <span className="text-ink-300">{liveHymn.title}</span>
-          </p>
-        )}
         <Status displayOpen={displayOpen} activated={player.activated} error={player.error} />
       </div>
 
@@ -135,18 +156,20 @@ export function Transport() {
           <Button
             size="lg"
             className="flex-1"
-            onClick={toggle}
-            disabled={!playing && !videoId}
-            title="Espaço"
+            onClick={() => (isLive ? toggle() : void putOnAir())}
+            disabled={isLive ? !playing && !videoId : !videoId}
+            title={isLive ? "Espaço" : "Colocar no ar (Enter)"}
           >
-            {player.buffering ? (
+            {!isLive ? (
+              <Send className="size-5" />
+            ) : player.buffering ? (
               <Loader2 className="size-5 animate-spin" />
             ) : playing ? (
               <Pause className="size-5" />
             ) : (
               <Play className="size-5" />
             )}
-            {playing ? "Pausar" : "Tocar"}
+            {!isLive ? "Colocar no ar" : playing ? "Pausar" : "Tocar"}
           </Button>
           <Button variant="secondary" size="lg" onClick={() => stepHymn(1)} title="Próximo hino (N)">
             <ChevronRight className="size-5" />
@@ -189,6 +212,7 @@ function PassageTransport({
   onNext,
   onBlank,
   onClose,
+  nextLabel,
 }: {
   reference: string;
   verses: { number: number; text: string }[];
@@ -199,11 +223,14 @@ function PassageTransport({
   onNext: () => void;
   onBlank: () => void;
   onClose: () => void;
+  nextLabel: string | null;
 }) {
   return (
     <div className="flex h-full min-h-0 flex-col gap-3 p-3">
+      <LiveSummary title={reference} blank={blank} playing={false} />
+      <NextSummary label={nextLabel} />
       <div>
-        <span className="text-xs font-semibold tracking-wider text-ink-400 uppercase">No ar</span>
+        <span className="text-xs font-semibold tracking-wider text-ink-400 uppercase">Conteúdo no ar</span>
         <div className="mt-1 max-h-64 space-y-2 overflow-y-auto rounded-xl border border-brand-500/70 bg-ink-900 p-3">
           <p className="text-sm font-semibold text-brand-400">{reference}</p>
           {verses.map((verse) => (
@@ -235,6 +262,54 @@ function PassageTransport({
         </Button>
       </div>
     </div>
+  );
+}
+
+function LiveSummary({ title, blank, playing }: { title: string; blank: boolean; playing: boolean }) {
+  return (
+    <section
+      className={cn(
+        "rounded-xl border p-3",
+        blank ? "border-red-500 bg-red-950/60" : "border-brand-500/60 bg-brand-600/10",
+      )}
+      aria-live="polite"
+    >
+      <div className="flex items-center justify-between gap-2">
+        <span
+          className={cn(
+            "text-xs font-bold tracking-wider uppercase",
+            blank ? "text-red-300" : "text-brand-400",
+          )}
+        >
+          No ar agora
+        </span>
+        {blank && (
+          <span className="rounded bg-red-500 px-2 py-0.5 text-[10px] font-bold text-white uppercase">
+            Blackout ativo
+          </span>
+        )}
+      </div>
+      <p className="mt-1 truncate text-sm font-medium text-ink-100">{title}</p>
+      <p className="mt-0.5 text-xs text-ink-400">
+        {blank
+          ? "A igreja está vendo uma tela preta; o conteúdo foi preservado."
+          : playing
+            ? "Reproduzindo"
+            : "Visível / preparado na projeção"}
+      </p>
+    </section>
+  );
+}
+
+function NextSummary({ label }: { label: string | null }) {
+  if (!label) return null;
+  return (
+    <section className="rounded-lg border border-ink-800 bg-ink-900 px-3 py-2">
+      <span className="text-[10px] font-semibold tracking-wider text-ink-400 uppercase">
+        Próximo no roteiro
+      </span>
+      <p className="truncate text-sm text-ink-200">{label}</p>
+    </section>
   );
 }
 
