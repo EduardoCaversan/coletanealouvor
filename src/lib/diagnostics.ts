@@ -92,7 +92,7 @@ export function inspectSetlist(
 }
 
 export function checkLocalStorageAvailable(): DiagnosticCheck {
-  const key = `coletanea:diagnostic:${Date.now()}`;
+  const key = `ekklesia:diagnostic:${Date.now()}`;
   try {
     localStorage.setItem(key, "ok");
     const valid = localStorage.getItem(key) === "ok";

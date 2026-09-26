@@ -15,7 +15,7 @@ export type ChannelMessage =
   /** Teclado da janela de projeção. */
   | { type: "command"; action: "next" | "prev" | "blank" | "toggle" };
 
-const NAME = "coletanea-live";
+const NAME = "ekklesia-live";
 
 /**
  * Canal entre a janela de controle e a janela de projeção. BroadcastChannel
@@ -32,7 +32,7 @@ export function createChannel(onMessage: (message: ChannelMessage) => void) {
     };
   }
 
-  const key = "coletanea:channel";
+  const key = "ekklesia:channel";
   const listener = (event: StorageEvent) => {
     if (event.key !== key || !event.newValue) return;
     try {

@@ -8,6 +8,7 @@ export type MediaEntry = {
   bytes: number;
   source: string;
 };
+// Retain the historical DB name: imported files must survive the Ekklesia rebrand.
 const database = () =>
   openDB("coletanea-media", 2, {
     upgrade(db) {

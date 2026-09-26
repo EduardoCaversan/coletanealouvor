@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>Ekklesia — Seu culto. Uma única central.</title>
+  <rect width="1200" height="630" fill="#101116"/>
+  <path fill="#b9afff" transform="translate(86 96) scale(2)" d="M50 10H12v44h38V44H22V20h28V10ZM22 27h36v10H22V27Z"/>
+  <text x="98" y="335" fill="#f2f1f7" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="94" font-weight="600" letter-spacing="-3">Ekklesia</text>
+  <text x="102" y="407" fill="#b9afff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="36">Seu culto. Uma única central.</text>
+  <path stroke="#383943" stroke-width="2" d="M102 470H1098"/>
+  <text x="102" y="525" fill="#aaa9b8" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24">Free, local-first worship presentation console for churches.</text>
+</svg>

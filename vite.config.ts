@@ -6,7 +6,7 @@ import path from "node:path";
 
 // Netlify/Vercel servem a partir da raiz; GitHub Pages de projeto serve em /<repo>/.
 // BASE_PATH deixa o mesmo build funcionar nos dois, sem hardcode de "/" no código.
-const base = process.env.BASE_PATH ?? "/";
+const base = process.env.BASE_PATH ?? "/ekklesia/";
 
 export default defineConfig({
   base,
@@ -17,23 +17,25 @@ export default defineConfig({
       registerType: "prompt",
       includeAssets: [
         "favicon.ico",
+        "favicon.svg",
         "favicon-16.png",
         "favicon-32.png",
         "apple-touch-icon.png",
       ],
       manifest: {
-        name: "Coletânea de Louvor",
-        short_name: "Coletânea",
+        id: base,
+        name: "Ekklesia",
+        short_name: "Ekklesia",
         description:
-          "Central de operação de culto: músicas, Bíblia, apresentações e roteiro em uma única tela",
+          "Free, local-first worship presentation console for churches.",
         lang: "pt-BR",
         start_url: base,
         scope: base,
         display: "standalone",
         display_override: ["fullscreen", "standalone"],
         orientation: "any",
-        background_color: "#0b0f19",
-        theme_color: "#0b0f19",
+        background_color: "#101116",
+        theme_color: "#101116",
         icons: [
           { src: `${base}icon-192.png`, sizes: "192x192", type: "image/png" },
           { src: `${base}icon-512.png`, sizes: "512x512", type: "image/png" },
@@ -46,6 +48,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cacheId: "ekklesia",
         globPatterns: [
           "**/*.{js,mjs,css,html,svg,png,woff2,bcmap,pfb,ttf,wasm}",
         ],
@@ -55,7 +58,7 @@ export default defineConfig({
             urlPattern: /\/data\/.*\.json$/,
             handler: "StaleWhileRevalidate",
             options: {
-              cacheName: "acervo-json",
+              cacheName: "ekklesia-acervo-json",
               expiration: { maxEntries: 32 },
             },
           },

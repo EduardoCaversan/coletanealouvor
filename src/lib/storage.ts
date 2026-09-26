@@ -5,6 +5,8 @@ import type { Bible, Hymnal, VideoMap } from "@/lib/types";
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
 function db() {
+  // Historical storage names are intentionally retained across the Ekklesia rebrand.
+  // Same-origin installations keep their existing cache and operator data.
   if (!dbPromise) {
     dbPromise = openDB("coletanea", 1, {
       upgrade(database) {
@@ -118,7 +120,7 @@ export async function loadVideoMap(): Promise<VideoMap> {
   return { ...base, ...local.get<VideoMap>("videos", {}) };
 }
 
-const PREFIX = "coletanea:";
+const PREFIX = "coletanea:"; // Legacy data namespace; not public branding.
 
 export const local = {
   get<T>(key: string, fallback: T): T {

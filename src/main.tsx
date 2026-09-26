@@ -18,7 +18,7 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Suspense fallback={<div className="h-dvh bg-ink-950" />}>
+    <Suspense fallback={<div className="h-dvh bg-black" />}>
       <RouterProvider router={router} />
     </Suspense>
   </StrictMode>,
