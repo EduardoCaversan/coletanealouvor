@@ -138,6 +138,7 @@ export default function Display() {
 
     return () => {
       cancelled = true;
+      if (readyRef.current) playerRef.current?.stopVideo();
       playerRef.current?.destroy();
       playerRef.current = null;
       readyRef.current = false;

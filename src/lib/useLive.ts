@@ -96,12 +96,10 @@ export function useControlLink() {
         if (message.action === "next") {
           if (store.liveContent) store.stepLive(1);
           else if (store.passage) store.movePassageVerses(1);
-          else store.stepHymn(1);
         }
         if (message.action === "prev") {
           if (store.liveContent) store.stepLive(-1);
           else if (store.passage) store.movePassageVerses(-1);
-          else store.stepHymn(-1);
         }
         if (message.action === "blank") store.setBlank(!store.blank);
         if (message.action === "toggle") {

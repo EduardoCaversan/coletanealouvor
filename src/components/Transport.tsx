@@ -7,6 +7,7 @@ import {
   Radio,
   Send,
   Star,
+  Square,
 } from "lucide-react";
 import { useApp } from "@/store/useApp";
 import { adjacentContent, contentKey, resolveContent } from "@/lib/content";
@@ -65,14 +66,16 @@ export function Transport() {
           <header>
             <span>
               <Radio size={14} />
-              NO AR
+              LIVE · NO AR
             </span>
             <span>
               {blank
                 ? "TELA APAGADA"
                 : !displayOpen
                   ? "Projeção fechada"
-                  : playing
+                  : !frame
+                    ? "Sem transmissão"
+                    : playing
                     ? "Reproduzindo"
                     : "Projeção conectada"}
             </span>
@@ -81,7 +84,7 @@ export function Transport() {
             {frame?.kind === "video" && frame.videoId && !simple ? (
               <VideoMonitor videoId={frame.videoId} blank={blank} />
             ) : (
-              <ContentScreen frame={frame} blank={blank} />
+              <ContentScreen frame={frame} blank={blank || !frame} />
             )}
           </div>
           <div className="monitor-caption">
@@ -211,6 +214,17 @@ export function Transport() {
         >
           <EyeOff size={18} />
           {blank ? "Restaurar tela" : "Apagar tela"}
+        </Button>
+        <Button
+          variant="outline"
+          className="border-red-400/60 text-red-300"
+          onClick={() => {
+            if (window.confirm("Encerrar a apresentação? A reprodução será interrompida e Live/Preview serão limpos. Seu roteiro e arquivos continuam salvos.")) s.endPresentation();
+          }}
+          title="Parar tudo, limpar Live e Preview e voltar ao estado neutro"
+        >
+          <Square size={18} />
+          Encerrar
         </Button>
       </div>
       {blank && (

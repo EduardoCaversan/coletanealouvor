@@ -43,6 +43,31 @@ beforeEach(() =>
 );
 
 describe("universal operation", () => {
+  it("ends playback and clears both stages without deleting the service plan or library", () => {
+    const content: Content = { kind: "youtube", title: "Hino", videoId: "abcdefghijk" };
+    useApp.getState().addContent(content);
+    useApp.getState().toggleFavorite(content);
+    useApp.getState().prepare(content);
+    useApp.getState().take();
+    useApp.setState({ playing: true, seek: { time: 25, nonce: 1 }, liveHymnId: 1, hymnId: 1, hymnUid: 'hymn', activeUid: 'hymn' });
+    useApp.getState().setBlank(true);
+    expect(useApp.getState().playing).toBe(true);
+    expect(useApp.getState().liveContent).toEqual(content);
+    const { setlist, favorites, recent } = useApp.getState();
+    useApp.getState().endPresentation();
+    expect(useApp.getState()).toMatchObject({
+      preview: null, previewUid: null, liveContent: null, liveFrame: null,
+      hymnId: null, hymnUid: null, liveHymnId: null, passage: null,
+      activeUid: null, playing: false, blank: false, seek: null,
+    });
+    expect(useApp.getState().setlist).toBe(setlist);
+    expect(useApp.getState().favorites).toBe(favorites);
+    expect(useApp.getState().recent).toBe(recent);
+    useApp.getState().toggle();
+    useApp.getState().stepLive(1);
+    expect(useApp.getState().playing).toBe(false);
+    expect(useApp.getState().liveFrame).toBeNull();
+  });
   it("keeps each prepared content out of Live until take; snapshots exclude private notes", () => {
     const contents: Content[] = [
       { kind: "text", title: "Texto", body: "Mensagem" },

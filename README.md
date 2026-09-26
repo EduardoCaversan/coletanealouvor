@@ -11,6 +11,7 @@ Publicado em https://eduardocaversan.github.io/coletanealouvor/
 3. Confira o Preview e clique **Colocar no ar**. Para vídeos, clique uma vez na projeção para liberar o som e use **Iniciar** no controle.
 4. **Anterior / Próximo** percorrem slides ou versículos no ar. A Bíblia continua entre capítulos e livros.
 5. **Apagar tela** cobre a projeção sem destruir o conteúdo. O áudio continua; use Pausar para interrompê-lo.
+6. **Encerrar** para vídeo e timers, limpa Live/Preview e deixa o telão preto em estado neutro. O roteiro, as programações e os arquivos são preservados. A sessão encerrada não é oferecida para restauração.
 
 Selecionar, pesquisar e editar nunca substituem o conteúdo no ar. Notas do roteiro são privadas. Etapas como oração e sermão podem ser marcadas em curso sem mudar o telão. O próximo item do roteiro tem sua própria ação **Preparar próximo**.
 

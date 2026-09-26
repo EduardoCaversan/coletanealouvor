@@ -37,7 +37,8 @@ export function SessionRecovery() {
       if (
         s.preview !== previous.preview ||
         s.liveContent !== previous.liveContent ||
-        s.activeUid !== previous.activeUid
+        s.activeUid !== previous.activeUid ||
+        s.endRevision !== previous.endRevision
       ) {
         save();
         if (pending) setPending(null);

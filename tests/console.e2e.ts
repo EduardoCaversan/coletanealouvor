@@ -168,6 +168,22 @@ test("live operation, universal plan, media, recovery and private tools", async 
   await page.getByRole("button", { name: "Mídia", exact: true }).click();
   await expect(page.locator(".media-row")).toContainText("Sermão");
   await page.screenshot({ path: "test-results/console-smoke.png" });
+  page.once("dialog", dialog => dialog.dismiss());
+  await page.getByRole("button", { name: "Encerrar", exact: true }).click();
+  await expect(page.getByTestId("live-monitor")).toContainText("SORTEIO");
+  await page.getByRole("button", { name: "Ferramentas", exact: true }).click();
+  await timer.getByRole("button", { name: "Iniciar", exact: true }).click();
+  page.once("dialog", dialog => dialog.accept());
+  await page.getByRole("button", { name: "Encerrar", exact: true }).click();
+  await expect(page.getByTestId("live-monitor")).toContainText("Nenhum conteúdo no ar");
+  await expect(page.getByTestId("preview-monitor")).toContainText("Busque ou selecione um item");
+  await expect(display.locator(".content-screen, iframe")).toHaveCount(0);
+  await expect(timer.getByRole("button", { name: "Iniciar", exact: true })).toBeVisible();
+  await display.keyboard.press("ArrowRight");
+  await expect(page.getByTestId("live-monitor")).toContainText("Nenhum conteúdo no ar");
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Restaurar", exact: true })).toHaveCount(0);
+  await expect(page.locator(".service-panel")).toContainText("MICROFONE 2");
   expect(errors).toEqual([]);
 });
 
@@ -183,6 +199,7 @@ test("notebook layout and direct display route", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: "Apagar tela", exact: true }),
   ).toBeInViewport();
+  await expect(page.getByRole("button", { name: "Encerrar", exact: true })).toBeInViewport();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,

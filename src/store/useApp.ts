@@ -49,6 +49,7 @@ const emptyPlayer: PlayerState = {
 };
 
 type State = {
+  endRevision: number;
   preview: Content | null;
   previewUid: string | null;
   liveContent: Content | null;
@@ -105,6 +106,7 @@ type State = {
 };
 
 type Actions = {
+  endPresentation: () => void;
   prepare: (content: Content, uid?: string | null) => void;
   take: () => void;
   stepLive: (delta: number) => void;
@@ -286,6 +288,29 @@ const initialPlanDirty =
       JSON.stringify(comparableItems(initialSetlist)));
 
 export const useApp = create<State & Actions>((set, get) => ({
+  endRevision: 0,
+  endPresentation() {
+    local.set("console-session", null);
+    set({
+      preview: null,
+      previewUid: null,
+      liveContent: null,
+      liveFrame: null,
+      liveBible: [],
+      hymnId: null,
+      hymnUid: null,
+      liveHymnId: null,
+      passage: null,
+      activeUid: null,
+      playing: false,
+      blank: false,
+      seek: null,
+      retryAt: 0,
+      notice: null,
+      player: { ...emptyPlayer, activated: get().player.activated },
+      endRevision: get().endRevision + 1,
+    });
+  },
   preview: null,
   previewUid: null,
   liveContent: null,

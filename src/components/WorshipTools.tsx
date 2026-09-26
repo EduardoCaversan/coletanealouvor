@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ContentScreen, TimerValue } from "./ContentScreen";
 import { useApp } from "@/store/useApp";
@@ -23,6 +23,7 @@ export function ContentActions({ content }: { content: Content }) {
 }
 
 export function WorshipTools() {
+  const endRevision = useApp((s) => s.endRevision);
   const [title, setTitle] = useState("CULTO DIVINO");
   const [body, setBody] = useState("Começaremos em breve.");
   const [minutes, setMinutes] = useState(5);
@@ -34,6 +35,9 @@ export function WorshipTools() {
     endsAt: null,
   });
   const [mode, setMode] = useState("numbers");
+  useEffect(() => {
+    setTimer((current) => ({ ...current, remaining: current.duration, endsAt: null }));
+  }, [endRevision]);
   const [from, setFrom] = useState(1),
     [to, setTo] = useState(150),
     [quantity, setQuantity] = useState(1);
