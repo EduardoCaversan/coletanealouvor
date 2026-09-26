@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { CircleHelp, MonitorPlay, MonitorX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SystemCheck } from "@/components/SystemCheck";
-import logoUrl from "@/assets/logo.png";
 import {
   listScreens,
   supportsScreenPlacement,
@@ -42,13 +41,14 @@ export function TopBar({ onShowShortcuts }: { onShowShortcuts: () => void }) {
   };
 
   return (
-    <header className="flex flex-wrap items-center gap-2 border-b border-ink-800 bg-ink-900 px-3 py-2">
-      <h1 className="mr-auto flex items-center gap-2 text-sm font-semibold text-ink-200">
-        <img src={logoUrl} alt="" className="h-7 w-auto" />
-        <span>
-          Coletânea <span className="text-brand-400">de Louvor</span>
-        </span>
-      </h1>
+    <header className="brand-header flex flex-wrap items-center gap-2 border-b border-ink-800 bg-ink-900 px-4 py-3">
+      <div className="brand-lockup mr-auto">
+        <img src={`${import.meta.env.BASE_URL}brand/symbol.svg`} alt="" width="38" height="38" />
+        <div>
+          <h1>Ekklesia</h1>
+          <p>Seu culto. Uma única central.</p>
+        </div>
+      </div>
 
       {screens.length > 1 && (
         <select
@@ -68,13 +68,13 @@ export function TopBar({ onShowShortcuts }: { onShowShortcuts: () => void }) {
       <span
         className={cn(
           "hidden items-center gap-1.5 text-xs sm:flex",
-          displayOpen ? "text-brand-400" : "text-ink-400",
+          displayOpen ? "text-success" : "text-ink-400",
         )}
       >
         <span
           className={cn(
             "size-2 rounded-full",
-            displayOpen ? "bg-brand-500" : "bg-ink-600",
+            displayOpen ? "bg-success" : "bg-ink-600",
           )}
         />
         {displayOpen ? "Projeção conectada" : "Projeção fechada"}

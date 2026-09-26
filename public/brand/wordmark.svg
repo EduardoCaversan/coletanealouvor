@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 76" fill="none">
+  <title>Ekklesia</title>
+  <rect width="330" height="76" rx="8" fill="#101116"/>
+  <path fill="#b9afff" d="M50 16H12v44h38V50H22V26h28V16ZM22 33h36v10H22V33Z"/>
+  <text x="78" y="53" fill="#f2f1f7" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="44" font-weight="600" letter-spacing="-1.5">Ekklesia</text>
+</svg>

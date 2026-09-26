@@ -97,7 +97,7 @@ export function SystemCheck() {
             <p
               className={cn(
                 "min-w-0 flex-1 text-sm",
-                hasError ? "text-red-400" : hasAttention ? "text-amber-400" : "text-brand-400",
+                hasError ? "text-danger" : hasAttention ? "text-warning" : "text-success",
               )}
               aria-live="polite"
             >
@@ -121,8 +121,8 @@ export function SystemCheck() {
 }
 
 function StatusIcon({ status }: { status: DiagnosticCheck["status"] }) {
-  if (status === "ok") return <CheckCircle2 className="size-5 shrink-0 text-brand-400" aria-label="OK" />;
-  if (status === "warning") return <AlertTriangle className="size-5 shrink-0 text-amber-400" aria-label="Atenção" />;
-  if (status === "error") return <XCircle className="size-5 shrink-0 text-red-400" aria-label="Erro" />;
+  if (status === "ok") return <CheckCircle2 className="size-5 shrink-0 text-success" aria-label="OK" />;
+  if (status === "warning") return <AlertTriangle className="size-5 shrink-0 text-warning" aria-label="Atenção" />;
+  if (status === "error") return <XCircle className="size-5 shrink-0 text-danger" aria-label="Erro" />;
   return <CircleHelp className="size-5 shrink-0 text-ink-400" aria-label="Desconhecido" />;
 }
