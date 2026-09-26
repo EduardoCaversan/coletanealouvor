@@ -1,81 +1,102 @@
-# Coletânea de Louvor — Central de culto
+# Ekklesia
 
-Console gratuito e local-first para operar músicas, Bíblia, apresentações e roteiro, com uma janela separada de projeção. Sem login, backend ou upload de arquivos.
+<img src="public/brand/wordmark.svg" width="330" alt="Ekklesia" />
 
-Publicado em https://eduardocaversan.github.io/coletanealouvor/
+**Seu culto. Uma única central.**
 
-## Operação
+Free, local-first worship presentation console for churches.
 
-1. Abra **Abrir projeção** e mova a janela para o telão. Duplo clique na projeção ou F alterna tela cheia.
-2. Busque um hino, referência bíblica ou arquivo. A seleção entra em **Preview**.
-3. Confira o Preview e clique **Colocar no ar**. Para vídeos, clique uma vez na projeção para liberar o som e use **Iniciar** no controle.
-4. **Anterior / Próximo** percorrem slides ou versículos no ar. A Bíblia continua entre capítulos e livros.
-5. **Apagar tela** cobre a projeção sem destruir o conteúdo. O áudio continua; use Pausar para interrompê-lo.
-6. **Encerrar** para vídeo e timers, limpa Live/Preview e deixa o telão preto em estado neutro. O roteiro, as programações e os arquivos são preservados. A sessão encerrada não é oferecida para restauração.
+[Abrir Ekklesia](https://eduardocaversan.github.io/ekklesia/) · [Inventário musical](docs/music-library-status.md) · [Identidade e migração](docs/brand.md)
 
-Selecionar, pesquisar e editar nunca substituem o conteúdo no ar. Notas do roteiro são privadas. Etapas como oração e sermão podem ser marcadas em curso sem mudar o telão. O próximo item do roteiro tem sua própria ação **Preparar próximo**.
+## O que é o Ekklesia?
 
-| Atalho         | Ação                                               |
-| -------------- | -------------------------------------------------- |
+Uma central para planejar, operar e projetar cultos pelo navegador. Prepare o próximo conteúdo enquanto a igreja continua vendo o que está no ar. Músicas, Bíblia, apresentações, roteiro e ferramentas ficam no mesmo ambiente, com uma janela separada para o projetor.
+
+**Selecionar não é projetar.** Busque e confira no Preview; use **Colocar no ar** quando estiver pronto.
+
+## Principais recursos
+
+### Operação ao vivo
+
+Live e Preview visuais, próximo conteúdo, transporte, modo simples e atalhos. **Apagar tela** esconde temporariamente sem destruir o conteúdo nem silenciar o áudio. **Encerrar** para a apresentação, limpa Live/Preview e deixa a projeção preta — sem logo ou propaganda.
+
+### Conteúdo
+
+Hinário Adventista por número, Bíblia em ARA/ARC/NTLH/NVI com navegação contínua entre capítulos e livros, vídeos do YouTube e biblioteca adventista por álbum/categoria. São 941 faixas em 91 coleções/seleções além do hinário, incluindo CDs Jovens, adoração infantil, ofertas/doxologia e instrumentais. [Fontes, cobertura de letras e lacunas](docs/music-library-status.md) são explícitas; disponibilidade externa pode mudar.
+
+PDF, PNG, JPG/JPEG e WebP podem ser arrastados para a biblioteca. Cada página do PDF vira um slide; imagens podem formar uma sequência, com thumbnails e navegação. **PowerPoint: exporte como PDF.** Não há suporte direto a PPT/PPTX, animações ou áudio embutido. Limites: 100 MB por arquivo e 300 páginas por PDF; guarde os originais.
+
+### Planejamento
+
+Programações nomeadas/datadas, modelos, reordenação, duplicação, notas privadas e desfazer da última alteração. Etapas como oração e sermão organizam o roteiro sem necessariamente projetar conteúdo. **Notas privadas nunca são enviadas ao Display.**
+
+### Ferramentas
+
+Texto rápido/tela de espera, timer privado ou projetável, favoritos, recentes e busca global. Sorteio de números/nomes com não repetição, revelação animada e histórico no projetor. Os vencedores são escolhidos antes da animação; o histórico permanece até ser explicitamente limpo.
+
+## Por que Ekklesia?
+
+Gratuito, de código público, sem conta, assinatura ou backend obrigatório. A operação e os arquivos ficam no navegador: uma proposta simples para equipes pequenas ou maiores, sem infraestrutura própria para administrar. A PWA oferece recursos offline após o carregamento; **YouTube e thumbnails externos precisam de internet**.
+
+## Comece a operar
+
+1. Abra [a aplicação](https://eduardocaversan.github.io/ekklesia/) e clique **Abrir projeção**. Permita pop-ups e mova a janela para o telão.
+2. Busque e prepare um conteúdo; confira o Preview e clique **Colocar no ar**.
+3. Para vídeos, clique uma vez na projeção para liberar o som e use **Iniciar** no controle.
+4. Use **Anterior/Próximo** para slides e versículos. Duplo clique ou **F** na projeção alterna tela cheia.
+5. Antes do culto, execute a verificação do sistema e confira som, legibilidade e vídeos no equipamento real.
+
+| Atalho | Ação |
+|---|---|
 | Ctrl / Cmd + K | Busca global, incluindo referências como João 3:16 |
-| Enter          | Colocar Preview no ar                              |
-| Espaço         | Iniciar / pausar vídeo ou timer no ar              |
-| ← / P e → / N  | Versículo ou slide anterior / próximo no ar        |
-| B              | Blackout                                           |
-| ?              | Ajuda                                              |
+| Enter | Colocar Preview no ar |
+| Espaço | Iniciar/pausar vídeo ou timer no ar |
+| ← / P e → / N | Slide ou versículo anterior/próximo no ar |
+| B | Blackout |
+| ? | Ajuda de atalhos |
 
-Atalhos de operação ficam inativos durante digitação e em diálogos. O modo simples reduz ajustes secundários e usa a capa do vídeo no monitor para consumir menos recursos.
+Atalhos de operação não interceptam digitação em campos e diálogos. O monitor de vídeo do operador é mudo e tem sincronização aproximada; não é uma captura do projetor.
 
-## Conteúdo e armazenamento
+## Rodando localmente
 
-- Hinário completo, ordenado por número; associação de vídeo editável.
-- Bíblia: ARA, ARC, NTLH e NVI; busca por referência e seleção visual. Passagens são percorridas um versículo de cada vez, sem parar no final da seleção.
-- Programações nomeadas e datadas, modelos, reordenação, duplicação, notas e desfazer a última alteração.
-- Favoritos, recentes, links próprios de YouTube, texto rápido, tela de espera, contagem privada/projetável e sorteio de números ou nomes.
-- Recuperação opcional após recarregar: conteúdo restaurado com blackout e playback pausado.
-- PDF, PNG, JPG/JPEG e WebP por seletor ou arrastar. Imagens podem formar uma sequência.
-
-PDF.js converte cada página em um slide estático de até 2560×1440, mantendo proporções. Fontes, mapas de caracteres e worker são servidos pelo próprio site. Arquivos de até 100 MB e PDFs de até 300 páginas; documentos protegidos por senha precisam ser desbloqueados antes. Não há suporte a animações, áudio embutido ou edição de slides.
-
-**PPT/PPTX:** exporte como PDF no PowerPoint/LibreOffice. A alternativa [PPTXjs](https://github.com/meshesha/PPTXjs) foi examinada, mas suas dependências antigas e limitações de renderização não justificam prometer fidelidade ao vivo.
-
-Arquivos e miniaturas ficam em IndexedDB; preferências, roteiro e referências ficam no armazenamento local. Importações incompletas são descartadas, e erros de armazenamento são informados. Limpar os dados do site remove o acervo local: mantenha os originais. Não há sincronização ou backup remoto.
-
-YouTube requer internet e pode apresentar anúncios, restrições de incorporação ou indisponibilidade. O monitor de vídeo do operador é mudo e sincronizado aproximadamente com a posição informada pela projeção; não é captura do telão.
-
-## Biblioteca musical e sorteio
-
-O catálogo reúne CDs Jovens, coletâneas, adoração infantil, ofertas/doxologia, outras músicas adventistas e instrumentais. Navegue por categoria/álbum ou busque título, ano e coleção. Faixas sem vídeo confiável continuam visíveis, mas não são projetáveis. Selecionar prepara; somente **Colocar no ar** altera a projeção.
-
-O [inventário musical](docs/music-library-status.md) contém números calculados, fontes e lacunas por coleção. Metadados e evidências individuais ficam em [catalog.json](src/data/music/catalog.json). “Com letra” indica evidência no título verificado; não significa inspeção integral de todos os vídeos. Incorporação foi testada por amostragem. Nenhuma mídia, letra de música ou capa foi copiada; miniaturas são remotas.
-
-No sorteio, os ganhadores são escolhidos antes da animação. Ao colocar no ar, números ou nomes passam por suspense e revelação progressiva; o histórico aparece no telão e permanece na ferramenta após **Encerrar**. Só **Novo sorteio / limpar histórico** o apaga. Movimento reduzido é respeitado.
-
-## Desenvolvimento e validação
+Com Node.js compatível com as dependências do projeto:
 
 ```sh
 npm ci
 npm run import:hymnal
 npm run import:bible
 npm run dev
+```
+
+Abra o endereço `/ekklesia/` informado pelo Vite. `npm run import:videos` gera opcionalmente o mapa de vídeos do hinário consultando playlists públicas (melhor esforço). O catálogo musical também permite adicionar links próprios.
+
+```sh
 npm run typecheck
-node scripts/validate-music.mjs --report
 npm run lint
 npm test
+node scripts/validate-music.mjs
 npm run test:smoke
 npm run build
 ```
 
-O mapa curado de vídeos está em public/data/videos.json. Atualização opcional: npm run import:videos, com playlists em scripts/playlists.json. Traduções bíblicas usam os releases de [damarals/biblias](https://github.com/damarals/biblias).
+O lint atual é um alias de typecheck. Smoke tests usam Edge instalado; `SMOKE_BROWSER=chrome` seleciona Chrome. `SMOKE_URL` permite testar um build servido separadamente, incluindo a PWA offline.
 
-O lint existente é um alias de typecheck. Smoke tests usam Edge instalado, duas janelas, um PDF de teste gerado e imagens locais. SMOKE_BROWSER=chrome seleciona Chrome. SMOKE_URL permite testar um build servido em outro endereço e habilita o teste de PWA offline. Reprodução real de YouTube e posicionamento físico das telas exigem validação manual.
+O build usa `/ekklesia/` por padrão; `BASE_PATH` permite outro destino. O workflow de Pages usa o nome real do repositório, mantém typecheck/testes e cria `404.html` para as rotas da aplicação. Não é necessário servidor de aplicação.
 
-## Arquitetura e publicação
+## Privacidade e dados
 
-React, TypeScript, Vite, Zustand, IndexedDB, PDF.js e PWA. Content é uma união discriminada; resolveContent cria um frame público com campos permitidos. ContentScreen compartilha composição entre Preview e Display. Notas não entram nesse frame. Arquivos trafegam por referências locais, nunca como blobs no canal entre janelas.
+Programações, preferências, favoritos e histórico são persistidos localmente; arquivos e thumbnails importados ficam em IndexedDB. Não há upload de arquivos, telemetria ou sincronização cloud próprios. YouTube e outras fontes externas recebem as requisições necessárias para os conteúdos remotos e seguem suas próprias políticas.
 
-O roteiro antigo continua compatível. O banco de mídia é independente do cache de Bíblia/hinário. BroadcastChannel comunica as janelas; eventos de storage são a alternativa local.
+Limpar os dados do site remove o acervo local. Mantenha seus arquivos originais: armazenamento do navegador não é backup. A recuperação de sessão é opcional, com tela apagada e vídeo pausado. Feche as janelas e reabra entre sessões para receber atualizações, não durante uma apresentação.
 
-O workflow de GitHub Pages usa BASE_PATH=/coletanealouvor/ e copia index.html para 404.html. O worker de PDF, suas fontes e os chunks estão no precache da PWA; dados bíblicos são armazenados após o primeiro carregamento. Atualizações não forçam recarga durante o culto: feche as janelas e reabra o aplicativo entre sessões para atualizar.
+A mudança de nome preserva os identificadores históricos de armazenamento no mesmo domínio, sem apagar caches ou bancos antigos. Instalações PWA antigas não migram automaticamente para a nova URL; veja [as orientações de migração](docs/brand.md#migração).
 
-Antes de mergear, teste no equipamento da igreja: segunda tela, tela cheia, áudio e anúncios do YouTube, legibilidade do PDF real e leitura bíblica à distância.
+## Origem do projeto
+
+Ekklesia nasceu de um fork do projeto de código público [Coletânea de Louvor, de Jackson Alexandre](https://github.com/jacksonalexandre/coletanealouvor), e evoluiu para uma direção independente de produto, com foco em operação completa de cultos, experiência local-first e ferramentas de apresentação. O histórico Git e a autoria das contribuições foram preservados.
+
+As traduções bíblicas são importadas dos releases de [damarals/biblias](https://github.com/damarals/biblias). As fontes do catálogo musical estão registradas no [inventário](docs/music-library-status.md).
+
+## Licença
+
+O estado herdado do repositório não contém um arquivo `LICENSE` nem uma concessão explícita de licença identificada. O rebrand não acrescenta uma licença ou altera a autoria do código. Até que os titulares esclareçam o licenciamento, não se deve presumir uma licença open-source específica. As dependências e os conteúdos referenciados mantêm suas próprias licenças e direitos.

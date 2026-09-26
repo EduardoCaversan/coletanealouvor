@@ -7,7 +7,7 @@ export default defineConfig({
   workers: 1,
   timeout: 45000,
   use: {
-    baseURL: process.env.SMOKE_URL ?? "http://127.0.0.1:5174/coletanealouvor/",
+    baseURL: process.env.SMOKE_URL ?? "http://127.0.0.1:5174/ekklesia/",
     viewport: { width: 1440, height: 900 },
     channel: process.env.SMOKE_BROWSER ?? "msedge",
     screenshot: "only-on-failure",
@@ -18,8 +18,8 @@ export default defineConfig({
     : {
         command:
           "node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 5174",
-        url: "http://127.0.0.1:5174/coletanealouvor/",
+        url: "http://127.0.0.1:5174/ekklesia/",
         reuseExistingServer: true,
-        env: { BASE_PATH: "/coletanealouvor/" },
+        env: { BASE_PATH: "/ekklesia/" },
       },
 });

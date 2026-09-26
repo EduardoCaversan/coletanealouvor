@@ -79,7 +79,7 @@ export async function openDisplayWindow(
 ): Promise<DisplayWindow | null> {
   const child = window.open(
     `${import.meta.env.BASE_URL}projecao`,
-    "coletanea-projecao",
+    "ekklesia-projecao",
     "popup=yes,width=1280,height=720",
   );
   if (!child) return null;
