@@ -44,10 +44,10 @@ YouTube requer internet e pode apresentar anúncios, restrições de incorporaç
 
 ## Biblioteca musical inicial
 
-Metadados e links verificados por páginas públicas e oEmbed do YouTube em 26/09/2026 UTC:
+Metadados, links e reprodução incorporada verificados em 26/09/2026 UTC:
 
-- **Adoradores 4:** Meu Pastor (Weslley Fonseca e Melissa Barcelos), Estou Aqui, Seja o Centro e Levanto a Cruz, em publicações da Gravadora Novo Tempo.
-- **Novo Tom:** O Melhor Lugar do Mundo, vídeo oficial do próprio grupo.
+- **Adoradores 4:** Estou Aqui, Seja o Centro e Levanto a Cruz, em publicações da Gravadora Novo Tempo.
+- **Novo Tom:** O Melhor Lugar do Mundo (Ao Vivo), publicado pela Rede Novo Tempo de Comunicação.
 - **Instrumentais:** Jader Santos — 3 horas de piano (Gravadora Novo Tempo); 1 hora instrumental piano — A sós com Deus (Matheus Rizzo).
 
 As referências e fontes individuais estão em [src/lib/music.ts](src/lib/music.ts). A seleção não pretende representar álbuns completos nem a ordem original das faixas. Nenhuma mídia, letra de música ou capa foi copiada para o repositório; as miniaturas são remotas.

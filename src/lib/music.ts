@@ -1,19 +1,11 @@
 import type { Content } from "./content";
 
-// Titles and publishers checked against YouTube oEmbed on 2026-09-26 (UTC).
+// Metadata and embedded playback checked on 2026-09-26 (UTC).
 // Only remote references; no audio, video, lyrics or album artwork is redistributed.
 export const musicLibrary: (Extract<Content, { kind: "youtube" }> & {
   publisher: string;
   source: string;
 })[] = [
-  {
-    kind: "youtube",
-    videoId: "mWw_x_B19oo",
-    title: "Meu Pastor · Weslley Fonseca e Melissa Barcelos",
-    collection: "Adoradores 4",
-    publisher: "Gravadora Novo Tempo",
-    source: "https://www.youtube.com/watch?v=mWw_x_B19oo",
-  },
   {
     kind: "youtube",
     videoId: "RvXJGbnJ6jc",
@@ -40,11 +32,11 @@ export const musicLibrary: (Extract<Content, { kind: "youtube" }> & {
   },
   {
     kind: "youtube",
-    videoId: "lGe7hzO3zMw",
-    title: "O Melhor Lugar do Mundo",
+    videoId: "GsJR4rRldgo",
+    title: "O Melhor Lugar do Mundo (Ao Vivo)",
     collection: "Novo Tom · seleção oficial",
-    publisher: "Novo Tom",
-    source: "https://www.youtube.com/watch?v=lGe7hzO3zMw",
+    publisher: "Rede Novo Tempo de Comunicação",
+    source: "https://www.youtube.com/watch?v=GsJR4rRldgo",
   },
   {
     kind: "youtube",
