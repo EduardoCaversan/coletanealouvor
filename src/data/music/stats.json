@@ -1,10 +1,10 @@
 {
   "collections": 91,
   "tracks": 941,
-  "lyrics": 379,
+  "lyrics": 378,
   "fallbacks": 485,
-  "missing": 77,
-  "uniqueVideos": 844,
+  "missing": 78,
+  "uniqueVideos": 843,
   "groups": {
     "youth": {
       "collections": 40,
@@ -16,9 +16,9 @@
     "collections": {
       "collections": 31,
       "tracks": 279,
-      "lyrics": 110,
+      "lyrics": 109,
       "fallbacks": 105,
-      "missing": 64
+      "missing": 65
     },
     "children": {
       "collections": 15,

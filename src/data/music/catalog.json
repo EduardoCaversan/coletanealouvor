@@ -748,7 +748,7 @@
       "title": "Tema JA 2023 · Eu Vou",
       "year": 2023,
       "group": "youth",
-      "source": "https://www.youtube.com/watch?v=VnDTO4HE5sE",
+      "source": "https://www.youtube.com/watch?v=ygwQGsRFvlk",
       "orderKnown": false,
       "inventoryScope": "annual-selection"
     },
@@ -766,7 +766,7 @@
       "title": "Tema JA 2025 · Maranata",
       "year": 2025,
       "group": "youth",
-      "source": "https://www.youtube.com/watch?v=Iqpvhm2yjO0",
+      "source": "https://www.youtube.com/watch?v=3wpRy-60ILg",
       "orderKnown": false,
       "inventoryScope": "annual-selection"
     },
@@ -1987,10 +1987,10 @@
       "collectionId": "adoradores-4",
       "tags": [],
       "source": "https://iasdermelinda.com.br/musicas/albuns/adoradores-4/yaVMkPK7",
-      "availability": "verified",
-      "videoId": "XXC0p8vKS2g",
-      "lyrics": true,
-      "verification": {
+      "availability": "unmapped",
+      "lyrics": false,
+      "candidateId": "mWw_x_B19oo",
+      "rejectedVideo": {
         "videoId": "XXC0p8vKS2g",
         "title": "ADORADORES 4 - MEU PASTOR (LETRA)",
         "publisher": "GravadoraNT",
@@ -1999,7 +1999,7 @@
         "method": "youtube-oembed",
         "lyricEvidence": "title"
       },
-      "candidateId": "mWw_x_B19oo"
+      "recordingNote": "Não foi possível reproduzir este vídeo na projeção. As versões testadas restringem a reprodução fora do YouTube."
     },
     {
       "id": "adoradores-4-8",
@@ -9701,7 +9701,6 @@
       "availability": "verified",
       "track": 2,
       "alternateTitles": [
-        "Vem Brilhar",
         "Vem brilhar em mim"
       ],
       "rejectedVideo": {

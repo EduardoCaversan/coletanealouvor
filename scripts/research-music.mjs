@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 const root = new URL('../', import.meta.url);
 const cache = new URL('.music-research/', root);
 const output = new URL('src/data/music/catalog.json', root);
+const blocked = JSON.parse(await readFile(new URL('src/data/music/blocked-videos.json', root),'utf8'));
 await mkdir(cache, { recursive: true });
 await mkdir(new URL('src/data/music/', root), { recursive: true });
 export const norm = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -64,6 +65,7 @@ export async function search(query) {
   });
 }
 export async function verify(videoId) {
+  if(blocked.videoIds.includes(videoId)) return null;
   return cached('oembed:'+videoId,async()=>{
     try { const data=await(await request('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+videoId))).json();
       return {videoId,title:data.title,publisher:data.author_name,source:'https://www.youtube.com/watch?v='+videoId,checkedAt:date};

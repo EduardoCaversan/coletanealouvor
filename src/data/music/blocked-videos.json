@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-09-26",
+  "method": "YouTube IFrame Player API, Edge, localhost origin",
+  "errorCode": 150,
+  "reason": "Não foi possível reproduzir este vídeo na projeção. As versões testadas restringem a reprodução fora do YouTube.",
+  "videoIds": [
+    "XXC0p8vKS2g", "mWw_x_B19oo", "lGe7hzO3zMw", "HN0Xu7c6a88",
+    "7czWkcLc8Qw", "XMS6Wxf0bWM", "JijGWvTy-w8", "-rYhUw8AgjY", "TT40oWefbr0"
+  ]
+}

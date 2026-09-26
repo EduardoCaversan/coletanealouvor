@@ -2,7 +2,7 @@
 
 Atualizado: 2026-09-26. Estatísticas geradas por `node scripts/validate-music.mjs --report`.
 
-Total: **941 faixas**, **91 coleções/seleções**, **379 com indicação de letra**, **485 fallbacks**, **77 sem vídeo**, **844 IDs únicos**.
+Total: **941 faixas**, **91 coleções/seleções**, **378 com indicação de letra**, **485 fallbacks**, **78 sem vídeo**, **843 IDs únicos**.
 
 “Com letra” significa indicação explícita no título do vídeo conferido no YouTube (ou inspeção visual registrada). Não significa que todos os vídeos foram assistidos integralmente. A verificação de existência/título usa oEmbed do YouTube, com data, título, canal e URL em cada registro. Reprodução incorporada, disponibilidade regional, anúncios e remoções podem mudar; confira antes do culto.
 
@@ -13,7 +13,7 @@ O inventário cobre as faixas identificadas nas fontes vinculadas, não afirma e
 | Categoria | Coleções | Faixas | Letra | Fallback | Sem vídeo |
 |---|---:|---:|---:|---:|---:|
 | youth | 40 | 369 | 158 | 208 | 3 |
-| collections | 31 | 279 | 110 | 105 | 64 |
+| collections | 31 | 279 | 109 | 105 | 65 |
 | children | 15 | 230 | 51 | 169 | 10 |
 | offering | 1 | 32 | 32 | 0 | 0 |
 | other | 3 | 29 | 28 | 1 | 0 |
@@ -47,7 +47,7 @@ O inventário cobre as faixas identificadas nas fontes vinculadas, não afirma e
 | [Adoradores 1](https://iasdermelinda.com.br/musicas/albuns/adoradores-1/2mNxaVKv) | identified-tracklist | 12 | 3 | 9 | 0 |
 | [Adoradores 2](https://iasdermelinda.com.br/musicas/albuns/adoradores-2/ngVLnP8G) | identified-tracklist | 12 | 4 | 8 | 0 |
 | [Adoradores 3](https://iasdermelinda.com.br/musicas/albuns/adoradores-3/epqZbqB8) | identified-tracklist | 16 | 14 | 2 | 0 |
-| [Adoradores 4](https://iasdermelinda.com.br/musicas/albuns/adoradores-4/yaVMkPK7) | identified-tracklist | 10 | 10 | 0 | 0 |
+| [Adoradores 4](https://iasdermelinda.com.br/musicas/albuns/adoradores-4/yaVMkPK7) | identified-tracklist | 10 | 9 | 0 | 1 |
 | [Adoradores 5](https://iasdermelinda.com.br/musicas/albuns/adoradores-5/4xNKALq8) | identified-tracklist | 13 | 13 | 0 | 0 |
 | [Arautos do Rei](https://iasdermelinda.com.br/musicas/albuns/arautos-do-rei/ngVL4nV8) | selection | 1 | 0 | 1 | 0 |
 | [Até que Ele venha](https://iasdermelinda.com.br/musicas/albuns/ate-que-ele-venha/wrV7bBNB) | selection | 11 | 1 | 9 | 1 |
@@ -110,13 +110,14 @@ O inventário cobre as faixas identificadas nas fontes vinculadas, não afirma e
 | [Ministério JA/Música 2022 - Eu vou](https://iasdermelinda.com.br/musicas/albuns/ministerio-ja-musica-2022-eu-vou/Mnq93N39) | annual-selection | 3 | 0 | 3 | 0 |
 | [Ministério Jovem 2023 · Culto Jovem Vol. 2](https://www.cifraclub.com/ministerio-jovem/discografia.html) | selection | 10 | 8 | 2 | 0 |
 | [Ministério Jovem 2023 · Me Ama](https://www.cifraclub.com/ministerio-jovem/discografia.html) | selection | 12 | 10 | 2 | 0 |
-| [Tema JA 2023 · Eu Vou](https://www.youtube.com/watch?v=VnDTO4HE5sE) | annual-selection | 1 | 0 | 1 | 0 |
+| [Tema JA 2023 · Eu Vou](https://www.youtube.com/watch?v=ygwQGsRFvlk) | annual-selection | 1 | 0 | 1 | 0 |
 | [Tema JA 2024 · Maranata](https://www.youtube.com/watch?v=BoWNEwIY0nI) | annual-selection | 1 | 1 | 0 | 0 |
-| [Tema JA 2025 · Maranata](https://www.youtube.com/watch?v=Iqpvhm2yjO0) | annual-selection | 1 | 0 | 1 | 0 |
+| [Tema JA 2025 · Maranata](https://www.youtube.com/watch?v=3wpRy-60ILg) | annual-selection | 1 | 0 | 1 | 0 |
 | [Ministério JA 2026](https://iasdermelinda.com.br/musicas/albuns/ministerio-ja-2026/jYP0x5PX) | annual-selection | 1 | 1 | 0 | 0 |
 
 ## Mapeamentos ainda ausentes
 
+- **Adoradores 4**: Meu pastor.
 - **Até que Ele venha**: Escolhidos.
 - **Celebra São Paulo 2**: Nada vai nos separar.
 - **Celebra São Paulo 3**: Salmos 34.
@@ -143,3 +144,4 @@ O inventário cobre as faixas identificadas nas fontes vinculadas, não afirma e
 - Categorias de uso (ofertas, oração, dedicação) são curadoria operacional, não uma afirmação de que todas as faixas pertencem a um álbum oficial com esse nome.
 - Pesquisas, preferências por letra e correspondência com coleção são registradas no código de pesquisa; cache local ignorado pelo Git evita repetir consultas. O comando inventory recusa sobrescrever dados existentes.
 - Excluído: **Ouço Sua voz**. Atribuição ao CD Jovem adventista não confirmada; versão encontrada é Mutual 2017 (Igreja de Jesus Cristo). [Evidência](https://www.youtube.com/watch?v=JXE2bPWO7FY).
+- 9 vídeos com bloqueio de incorporação observado estão registrados em `src/data/music/blocked-videos.json` e não podem voltar ao catálogo sem revisão. “Meu Pastor” (Adoradores 4) permanece listado, mas indisponível, após falha da versão oficial e das alternativas testadas.

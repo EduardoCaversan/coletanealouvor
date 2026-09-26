@@ -43,15 +43,13 @@ Arquivos e miniaturas ficam em IndexedDB; preferências, roteiro e referências 
 
 YouTube requer internet e pode apresentar anúncios, restrições de incorporação ou indisponibilidade. O monitor de vídeo do operador é mudo e sincronizado aproximadamente com a posição informada pela projeção; não é captura do telão.
 
-## Biblioteca musical inicial
+## Biblioteca musical e sorteio
 
-Metadados, links e reprodução incorporada verificados em 26/09/2026 UTC:
+O catálogo reúne CDs Jovens, coletâneas, adoração infantil, ofertas/doxologia, outras músicas adventistas e instrumentais. Navegue por categoria/álbum ou busque título, ano e coleção. Faixas sem vídeo confiável continuam visíveis, mas não são projetáveis. Selecionar prepara; somente **Colocar no ar** altera a projeção.
 
-- **Adoradores 4:** Estou Aqui, Seja o Centro e Levanto a Cruz, em publicações da Gravadora Novo Tempo.
-- **Novo Tom:** O Melhor Lugar do Mundo (Ao Vivo), publicado pela Rede Novo Tempo de Comunicação.
-- **Instrumentais:** Jader Santos — 3 horas de piano (Gravadora Novo Tempo); 1 hora instrumental piano — A sós com Deus (Matheus Rizzo).
+O [inventário musical](docs/music-library-status.md) contém números calculados, fontes e lacunas por coleção. Metadados e evidências individuais ficam em [catalog.json](src/data/music/catalog.json). “Com letra” indica evidência no título verificado; não significa inspeção integral de todos os vídeos. Incorporação foi testada por amostragem. Nenhuma mídia, letra de música ou capa foi copiada; miniaturas são remotas.
 
-As referências e fontes individuais estão em [src/lib/music.ts](src/lib/music.ts). A seleção não pretende representar álbuns completos nem a ordem original das faixas. Nenhuma mídia, letra de música ou capa foi copiada para o repositório; as miniaturas são remotas.
+No sorteio, os ganhadores são escolhidos antes da animação. Ao colocar no ar, números ou nomes passam por suspense e revelação progressiva; o histórico aparece no telão e permanece na ferramenta após **Encerrar**. Só **Novo sorteio / limpar histórico** o apaga. Movimento reduzido é respeitado.
 
 ## Desenvolvimento e validação
 
@@ -61,6 +59,7 @@ npm run import:hymnal
 npm run import:bible
 npm run dev
 npm run typecheck
+node scripts/validate-music.mjs --report
 npm run lint
 npm test
 npm run test:smoke
